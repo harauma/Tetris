@@ -1,7 +1,7 @@
 
 
 document.getElementById("hello_text").textContent = "はじめてのJavaScript";
- 
+
 var count = 0;
 
 var cells;
@@ -17,42 +17,42 @@ var blocks = {
   o: {
     class: "o",
     pattern: [
-      [1, 1], 
+      [1, 1],
       [1, 1]
     ]
   },
   t: {
     class: "t",
     pattern: [
-      [0, 1, 0], 
+      [0, 1, 0],
       [1, 1, 1]
     ]
   },
   s: {
     class: "s",
     pattern: [
-      [0, 1, 1], 
+      [0, 1, 1],
       [1, 1, 0]
     ]
   },
   z: {
     class: "z",
     pattern: [
-      [1, 1, 0], 
+      [1, 1, 0],
       [0, 1, 1]
     ]
   },
   j: {
     class: "j",
     pattern: [
-      [1, 0, 0], 
+      [1, 0, 0],
       [1, 1, 1]
     ]
   },
   l: {
     class: "l",
     pattern: [
-      [0, 0, 1], 
+      [0, 0, 1],
       [1, 1, 1]
     ]
   }
@@ -61,10 +61,10 @@ loadTable();
 setInterval(function () {
   count++;
   document.getElementById("hello_text").textContent = "はじめてのJavaScript(" + count + ")";
-    
+
  if (hasFallingBlock()) { // 落下中のブロックがあるか確認する
     fallBlocks();// あればブロックを落とす
-  } else { // なければ  
+  } else { // なければ
   // ブロックが積み上がり切っていないかのチェック
   for (var row = 0; row <2; row++) {
     for (var col = 3; col < 6; col++) {
@@ -148,7 +148,7 @@ function deleteRow() {
       for (var col = 0; col < 10; col++) {
         cells[row][col].className = "";
       }
-		
+
       // 上の行のブロックをすべて1マス落とす
       for (var downRow = row - 1; downRow >= 0; downRow--) {
         for (var col = 0; col < 10; col++) {
@@ -212,7 +212,7 @@ function moveRight() {
     	}*/
 		/*if (cells[row][9].className !== "" && cells[row][9].blockNum !== fallingBlockNum){
           isFalling = false;
-          return; 
+          return;
     	}*/
     			if (cells[row][col].blockNum === fallingBlockNum) {
         				cells[row][col+1].className = cells[row][col].className;
