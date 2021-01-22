@@ -1,8 +1,10 @@
 document.getElementById("hello_text").textContent = "はじめてのJavaScript";
-
-var count = 0;
+document.addEventListener("keydown", onKeyDown);
 
 var cells;
+var count = 0;
+var fallingBlockNum = 0;
+var isFalling = false;
 
 // ブロックのパターン
 var blocks = {
@@ -55,6 +57,7 @@ var blocks = {
     ]
   }
 };
+
 loadTable();
 setInterval(function () {
   count++;
@@ -126,7 +129,6 @@ function fallBlocks() {
   }
 }
 
-var isFalling = false;
 
 function hasFallingBlock() {
   // 落下中のブロックがあるか確認する
@@ -161,7 +163,6 @@ function deleteRow() {
     }
   }
 }
-var fallingBlockNum = 0;
 
 function generateBlock() {
   // ランダムにブロックを生成する
@@ -287,8 +288,6 @@ function moveDown() {
     }
   }
 }
-
-document.addEventListener("keydown", onKeyDown);
 
 function onKeyDown(event) {
   if (event.keyCode === 37) {
