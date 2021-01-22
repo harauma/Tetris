@@ -1,5 +1,3 @@
-
-
 document.getElementById("hello_text").textContent = "はじめてのJavaScript";
 
 var count = 0;
@@ -62,21 +60,21 @@ setInterval(function () {
   count++;
   document.getElementById("hello_text").textContent = "はじめてのJavaScript(" + count + ")";
 
- if (hasFallingBlock()) { // 落下中のブロックがあるか確認する
-    fallBlocks();// あればブロックを落とす
+  if (hasFallingBlock()) { // 落下中のブロックがあるか確認する
+    fallBlocks(); // あればブロックを落とす
   } else { // なければ
-  // ブロックが積み上がり切っていないかのチェック
-  for (var row = 0; row <2; row++) {
-    for (var col = 3; col < 6; col++) {
-      if (cells[row][col].className !== "") {
-        endFlg = true;
-        alert("game over");
-        break;
+    // ブロックが積み上がり切っていないかのチェック
+    for (var row = 0; row < 2; row++) {
+      for (var col = 3; col < 6; col++) {
+        if (cells[row][col].className !== "") {
+          endFlg = true;
+          alert("game over");
+          break;
+        }
       }
     }
-  }
-    deleteRow();// そろっている行を消す
-    generateBlock();// ランダムにブロックを作成する
+    deleteRow(); // そろっている行を消す
+    generateBlock(); // ランダムにブロックを作成する
   }
 }, 250);
 
@@ -108,7 +106,7 @@ function fallBlocks() {
   for (var row = 18; row >= 0; row--) {
     for (var col = 0; col < 10; col++) {
       if (cells[row][col].blockNum === fallingBlockNum) {
-        if (cells[row + 1][col].className !== "" && cells[row + 1][col].blockNum !== fallingBlockNum){
+        if (cells[row + 1][col].className !== "" && cells[row + 1][col].blockNum !== fallingBlockNum) {
           isFalling = false;
           return; // 一つ下のマスにブロックがいるので落とさない
         }
@@ -129,17 +127,18 @@ function fallBlocks() {
 }
 
 var isFalling = false;
+
 function hasFallingBlock() {
   // 落下中のブロックがあるか確認する
   return isFalling;
 }
 
 function deleteRow() {
-// そろっている行を消す
- for (var row = 19; row >= 0; row--) {
+  // そろっている行を消す
+  for (var row = 19; row >= 0; row--) {
     var canDelete = true;
-    for (var col = 0; col < 10; col++) {//横一列揃ってるかの判別
-      if (cells[row][col].className === "") {//空白がある時点でアウト
+    for (var col = 0; col < 10; col++) { //横一列揃ってるかの判別
+      if (cells[row][col].className === "") { //空白がある時点でアウト
         canDelete = false;
       }
     }
@@ -158,11 +157,12 @@ function deleteRow() {
           cells[downRow][col].blockNum = null;
         }
       }
-	row++;
+      row++;
     }
   }
 }
 var fallingBlockNum = 0;
+
 function generateBlock() {
   // ランダムにブロックを生成する
   // 1. ブロックパターンからランダムに一つパターンを選ぶ
@@ -186,115 +186,116 @@ function generateBlock() {
 }
 
 function moveRight() {
- // ブロックを右に移動させる
-	var endFlg = true;
-	for (var num = 0; num < 20; num++) {
-		if (cells[num][9].blockNum === fallingBlockNum) {
-      		endFlg = false;
-      		return; // 一番下の行にブロックがいるので落とさない
-    	}
-	}
-	for (var row = 0; row <= 19; row++) {
-    		for (var col = 9; col >= 0; col--) {
-    			if (cells[row][col].blockNum === fallingBlockNum) {
-					if (cells[row][col+1].className !== "" && cells[row][col+1].blockNum !== fallingBlockNum){
-						endFlg = false;
-					}
-	  			}
-    		}
-	}
-	if(endFlg){
-		for (var row = 0; row <= 19; row++) {
-    		for (var col = 9; col >= 0; col--) {
-		/*if (cells[row][9].blockNum === fallingBlockNum) {
+  // ブロックを右に移動させる
+  var endFlg = true;
+  for (var num = 0; num < 20; num++) {
+    if (cells[num][9].blockNum === fallingBlockNum) {
+      endFlg = false;
+      return; // 一番下の行にブロックがいるので落とさない
+    }
+  }
+  for (var row = 0; row <= 19; row++) {
+    for (var col = 9; col >= 0; col--) {
+      if (cells[row][col].blockNum === fallingBlockNum) {
+        if (cells[row][col + 1].className !== "" && cells[row][col + 1].blockNum !== fallingBlockNum) {
+          endFlg = false;
+        }
+      }
+    }
+  }
+  if (endFlg) {
+    for (var row = 0; row <= 19; row++) {
+      for (var col = 9; col >= 0; col--) {
+        /*if (cells[row][9].blockNum === fallingBlockNum) {
       		isFalling = false;
       		return; // 一番下の行にブロックがいるので落とさない
     	}*/
-		/*if (cells[row][9].className !== "" && cells[row][9].blockNum !== fallingBlockNum){
+        /*if (cells[row][9].className !== "" && cells[row][9].blockNum !== fallingBlockNum){
           isFalling = false;
           return;
     	}*/
-    			if (cells[row][col].blockNum === fallingBlockNum) {
-        				cells[row][col+1].className = cells[row][col].className;
-						cells[row][col+1].blockNum = cells[row][col].blockNum;
-        				cells[row][col].className = "";
-        				cells[row][col].blockNum = null;
-	  			}
-    		}
-  		}
-	}
+        if (cells[row][col].blockNum === fallingBlockNum) {
+          cells[row][col + 1].className = cells[row][col].className;
+          cells[row][col + 1].blockNum = cells[row][col].blockNum;
+          cells[row][col].className = "";
+          cells[row][col].blockNum = null;
+        }
+      }
+    }
+  }
 }
 
 function moveLeft() {
- // ブロックを左に移動させる
-	var endFlg = true;
-	for (var num = 0; num < 20; num++) {
-		if (cells[num][0].blockNum === fallingBlockNum) {
-      		endFlg = false;
-      		return; // 一番下の行にブロックがいるので落とさない
-    	}
-	}
-	for (var row = 0; row <= 19; row++) {
-    		for (var col = 9; col >= 0; col--) {
-    			if (cells[row][col].blockNum === fallingBlockNum) {
-					if (cells[row][col - 1].className !== "" && cells[row][col - 1].blockNum !== fallingBlockNum){
-						endFlg = false;
-					}
-	  			}
-    		}
-	}
-	if(endFlg){
- 		for (var row = 19; row >= 0; row--) {
-    		for (var col = 1; col < 10; col++) {
-				if (cells[row][col].blockNum === fallingBlockNum) {
-					cells[row][col - 1].className = cells[row][col].className;
-					cells[row][col - 1].blockNum = cells[row][col].blockNum;
-					cells[row][col].className = "";
-					cells[row][col].blockNum = null;
-				}
-      		}
-    	}
-  	}
+  // ブロックを左に移動させる
+  var endFlg = true;
+  for (var num = 0; num < 20; num++) {
+    if (cells[num][0].blockNum === fallingBlockNum) {
+      endFlg = false;
+      return; // 一番下の行にブロックがいるので落とさない
+    }
+  }
+  for (var row = 0; row <= 19; row++) {
+    for (var col = 9; col >= 0; col--) {
+      if (cells[row][col].blockNum === fallingBlockNum) {
+        if (cells[row][col - 1].className !== "" && cells[row][col - 1].blockNum !== fallingBlockNum) {
+          endFlg = false;
+        }
+      }
+    }
+  }
+  if (endFlg) {
+    for (var row = 19; row >= 0; row--) {
+      for (var col = 1; col < 10; col++) {
+        if (cells[row][col].blockNum === fallingBlockNum) {
+          cells[row][col - 1].className = cells[row][col].className;
+          cells[row][col - 1].blockNum = cells[row][col].blockNum;
+          cells[row][col].className = "";
+          cells[row][col].blockNum = null;
+        }
+      }
+    }
+  }
 }
 
-function moveDown(){
-	var endFlg = true;
-	for (var num = 0; num < 10; num++) {
-		if (cells[19][num].blockNum === fallingBlockNum) {
-      		endFlg = false;
-      		return; // 一番下の行にブロックがいるので落とさない
-    	}
-	}
-	for (var row = 0; row < 19; row++) {
-    		for (var col = 9; col >= 0; col--) {
-    			if (cells[row][col].blockNum === fallingBlockNum) {
-					if (cells[row + 1][col].className !== "" && cells[row + 1][col].blockNum !== fallingBlockNum){
-						endFlg = false;
-					}
-	  			}
-    		}
-	}
-	if(endFlg){
-		for (var row = 18; row >= 0 ; row--) {
-    		for (var col = 0; col < 10; col++) {
-      			if (cells[row][col].blockNum === fallingBlockNum) {
-        			cells[row + 1][col].className = cells[row][col].className;
-        			cells[row + 1][col].blockNum = cells[row][col].blockNum;
-        			cells[row][col].className = "";
-        			cells[row][col].blockNum = null;
-		  		}
-      		}
-    	}
-  	}
+function moveDown() {
+  var endFlg = true;
+  for (var num = 0; num < 10; num++) {
+    if (cells[19][num].blockNum === fallingBlockNum) {
+      endFlg = false;
+      return; // 一番下の行にブロックがいるので落とさない
+    }
+  }
+  for (var row = 0; row < 19; row++) {
+    for (var col = 9; col >= 0; col--) {
+      if (cells[row][col].blockNum === fallingBlockNum) {
+        if (cells[row + 1][col].className !== "" && cells[row + 1][col].blockNum !== fallingBlockNum) {
+          endFlg = false;
+        }
+      }
+    }
+  }
+  if (endFlg) {
+    for (var row = 18; row >= 0; row--) {
+      for (var col = 0; col < 10; col++) {
+        if (cells[row][col].blockNum === fallingBlockNum) {
+          cells[row + 1][col].className = cells[row][col].className;
+          cells[row + 1][col].blockNum = cells[row][col].blockNum;
+          cells[row][col].className = "";
+          cells[row][col].blockNum = null;
+        }
+      }
+    }
+  }
 }
 
 document.addEventListener("keydown", onKeyDown);
+
 function onKeyDown(event) {
   if (event.keyCode === 37) {
     moveLeft();
   } else if (event.keyCode === 39) {
     moveRight();
-  } else if(event.keyCode === 40){
-	moveDown();
+  } else if (event.keyCode === 40) {
+    moveDown();
   }
 }
